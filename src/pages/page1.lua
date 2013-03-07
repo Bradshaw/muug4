@@ -1,12 +1,13 @@
 local state = gstate.new()
+local time = 0
 
 function state:init()
-	require("maze")
+
 end
 
 
 function state:enter()
-	
+
 end
 
 
@@ -62,12 +63,20 @@ end
 
 
 function state:update(dt)
-
+	time = time+dt
+	sparkle.update(sp, dt)
 end
 
 
 function state:draw()
-	love.graphics.print("This is page one!",20,20)
+	love.graphics.push()
+	love.graphics.scale(4,4)
+	love.graphics.setColor(255,255,255)
+	useful.print("G<n<ration proc<durale","center","center",0,-5,4)
+	useful.print("Difficult<: Hardcore","center","center",0,5,4)
+	sparkle.draw(sp)
+	love.graphics.setColor(255,255,255)
+	love.graphics.pop()
 end
 
 return state

@@ -6,7 +6,7 @@ end
 
 
 function state:enter()
-	print("Entered")
+	
 end
 
 
