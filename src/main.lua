@@ -1,7 +1,16 @@
 function love.load(arg)
+	seq = require("sequence")
+	local modes = love.graphics.getModes()
+	table.sort(modes, function(a, b) return a.width*a.height < b.width*b.height end)
+	local m = modes[#modes]
+	local success = love.graphics.setMode( m.width, m.height, true )
 	gstate = require "gamestate"
-	game = require("game")
-	gstate.switch(game)
+	local p = 1
+	while love.filesystem.exists("pages/page"..p..".lua") do
+		seq.new(require("pages/page"..p))
+		p = p+1
+	end
+	seq.next()
 end
 
 
