@@ -7,7 +7,9 @@ end
 
 
 function state:enter()
-
+	it = item.new()
+	drop = 0
+	height = 10
 end
 
 
@@ -63,6 +65,12 @@ end
 
 
 function state:update(dt)
+	drop = drop+dt*100
+	height = height-drop*dt
+	if height<=0 then
+		height=0
+		drop = -drop*0.75
+	end
 	time = time+dt
 	sparkle.update(sp, dt)
 end
@@ -74,7 +82,14 @@ function state:draw()
 	love.graphics.setColor(255,255,255)
 	useful.print("Phat loot!","center","top",-20,10,4)
 	useful.print(" - Contacter Blizzard\n","last","top",-20,25,4)
-	useful.print("Test\n","center","center",math.cos(time*7)*2,math.sin(time*14),4)
+	useful.print("lvl "..it.level.." "..item.adjectives[it.adj].word.." "..item.types[it.typ].." of "..item.styles[it.sty].word,"center","center",math.cos(time*7)*2,math.sin(time*14),4)
+	useful.print("Atk: "..it.speed,"center","center",0,15,4)
+	useful.print("Pow: "..it.power,"last","center",0,25,4)
+	useful.print("Def: "..it.size,"last","center",0,35,4)
+	love.graphics.draw(item.image[it.typ],lasthalign - 20, love.graphics.getHeight()/8+17-math.floor(height))
+	--print("Atk: "..it.speed)
+	--print("Pow: "..it.power)
+	--print("Def: "..it.size)
 	sparkle.draw(sp)
 	love.graphics.setColor(255,255,255)
 	love.graphics.pop()

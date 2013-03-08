@@ -2,6 +2,9 @@ function love.load(arg)
 	love.graphics.setDefaultImageFilter( "nearest", "nearest"  )
 	require("useful")
 
+	require("item")
+
+
 	font = love.graphics.newImageFont("images/myfont.png",
     " abcdefghijklmnopqrstuvwxyz" ..
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..

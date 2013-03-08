@@ -2,7 +2,14 @@ local state = gstate.new()
 local time = 0
 
 function state:init()
-
+	adjlist = "Adjectifs: \n"
+	for i,v in ipairs(item.adjectives) do
+		adjlist = adjlist.." - "..v.word.."\n"
+	end
+	adjlist = adjlist.."\nStyles: \n"
+	for i,v in ipairs(item.styles) do
+		adjlist = adjlist.." - "..v.word.."\n"
+	end
 end
 
 
@@ -72,7 +79,7 @@ function state:draw()
 	love.graphics.push()
 	love.graphics.scale(4,4)
 	love.graphics.setColor(255,255,255)
-	useful.print("Test\n","center","bottom",0,-time*10,4)
+	useful.print(adjlist,"center","bottom",0,-time*10,4)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle("fill",0,0,love.graphics.getWidth()/2,35)
 	love.graphics.setColor(0,0,0,65)

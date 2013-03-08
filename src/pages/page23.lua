@@ -1,6 +1,8 @@
 local state = gstate.new()
 local time = 0
 
+
+
 function state:init()
 
 end
@@ -74,7 +76,7 @@ function state:draw()
 	love.graphics.setColor(255,255,255)
 	useful.print("Phat loot!","center","top",-20,10,4)
 	useful.print(" - D<finir une syntaxe\n","last","top",-20,25,4)
-	useful.print("[adjectif] [type] de [<l<ment]\n","center","center",0,0,4)
+	useful.print("[adjective] [type] of [element]\n","center","center",0,0,4)
 	sparkle.draw(sp)
 	love.graphics.setColor(255,255,255)
 	love.graphics.pop()
