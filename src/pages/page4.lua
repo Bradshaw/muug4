@@ -7,6 +7,7 @@ end
 
 
 function state:enter()
+
 end
 
 
@@ -71,8 +72,13 @@ function state:draw()
 	love.graphics.push()
 	love.graphics.scale(4,4)
 	love.graphics.setColor(255,255,255)
-	useful.print("G<n<ration proc<durale","center","center",0,-5,4)
-	useful.print("Difficult<: Noob","center","center",math.cos(time*7),5+math.sin(time*14),4)
+	useful.print("Questions r<currentes\n\n"..
+		" - A quoi bon?\n"..
+		" - Est-ce que ca fait mal?\n"..
+		" - Comment on fait?\n"..
+		" - A quoi ca ressemble?\n\n"..
+		" - Quelques id<es et questions...\n"
+		,"center","center",0,-35,4)
 	sparkle.draw(sp)
 	love.graphics.setColor(255,255,255)
 	love.graphics.pop()

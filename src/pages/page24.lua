@@ -7,6 +7,7 @@ end
 
 
 function state:enter()
+	time = 0
 end
 
 
@@ -71,8 +72,16 @@ function state:draw()
 	love.graphics.push()
 	love.graphics.scale(4,4)
 	love.graphics.setColor(255,255,255)
-	useful.print("G<n<ration proc<durale","center","center",0,-5,4)
-	useful.print("Difficult<: Noob","center","center",math.cos(time*7),5+math.sin(time*14),4)
+	useful.print("Test\n","center","bottom",0,-time*10,4)
+	love.graphics.setColor(0,0,0)
+	love.graphics.rectangle("fill",0,0,love.graphics.getWidth()/2,35)
+	love.graphics.setColor(0,0,0,65)
+	for i=1,10 do
+		love.graphics.rectangle("fill",0,0,love.graphics.getWidth()/2,35+i*2)
+	end
+	love.graphics.setColor(255,255,255)
+	useful.print("Phat loot!","center","top",-20,10,4)
+	useful.print(" - Cr<er des mots\n","last","top",-20,25,4)
 	sparkle.draw(sp)
 	love.graphics.setColor(255,255,255)
 	love.graphics.pop()
