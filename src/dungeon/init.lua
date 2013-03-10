@@ -23,36 +23,73 @@ function dungeon.new(xsize,ysize)
   return self
 end
 
-function dungeon.newMade(xsize,ysize)
+function dungeon.newMaze(xsize,ysize)
     local d = dungeon.new(xsize,ysize)
-    --d:fill("wall")
+    d:dig()
+    return d
+end
+
+function dungeon.newDust(xsize,ysize)
+    local d = dungeon.new(xsize,ysize)
+    d:fill("wall")
     d:crap(0.4,"wall")
-    for i=1,12 do
+    for i=1,6 do
       d:randroom(3,6,"rect")
     end
-    for i=1,12 do
-      d:dig()
+    for i=1,6 do
+      --d:dig()
     end
-    --d:dig(0,math.floor(ysize/2))
-    --d:dig(xsize+1,math.floor(ysize/2))
-    --d:dig(math.floor(xsize/2),0)
-    --d:dig(math.floor(xsize/2),ysize+1)
-    --d:set(1,math.floor(ysize/2),"corridor")
-    --d:set(xsize,math.floor(ysize/2),"corridor")
-    --d:set(math.floor(xsize/2),1,"corridor")
-    --d:set(math.floor(xsize/2),ysize,"corridor")
     --d:replace("damage","wall")
     --d:crap(0.1,"wall")
-    for i=1,12 do
+    for i=1,6 do
       --d:cdig()
     end
-    d:crap(1,"wall")
-    d:replace("flal","wall")
+    --d:crap(1,"wall")
+    --d:replace("flal","wall")
+    --d:passage()
+    --d:crap(1,"damage","wall")
+    --d:crap(0.5,"damage","wall")
+
+    --d:foreveralone("wall", "room")
+
+    for i=1,10 do
+      d:foreveralone("corridor", "wall",7)
+    end
+
+    for i=1,10 do
+      d:foreveralone("wall", "room",7)
+    end
+
+    --d:rect(1,1,1,ysize,"wall")
+    --d:rect(1,1,xsize,1,"wall")
+    --d:rect(xsize,1,xsize,ysize,"wall")
+    --d:rect(1,ysize,ysize,xsize,"wall")
+    return d
+end
+
+
+function dungeon.newMade(xsize,ysize)
+    local d = dungeon.new(xsize,ysize)
+    d:fill("wall")
+    d:crap(0.4,"wall")
+    for i=1,1 do
+      d:dig()
+    end
+    for i=1,6 do
+      d:randroom(2,5,"rect")
+    end
+    d:replace("damage","wall")
+    --d:crap(0.1,"wall")
+    for i=1,6 do
+      --d:cdig()
+    end
+    --d:crap(1,"wall")
+    --d:replace("flal","wall")
     d:passage()
     --d:crap(1,"damage","wall")
     d:crap(0.5,"damage","wall")
 
-    d:foreveralone("wall", "room")
+    --d:foreveralone("wall", "room")
 
     for i=1,10 do
       d:foreveralone("corridor", "wall",7)
@@ -521,30 +558,34 @@ if love then
     end
   end
 
-  function dungeon_mt.pretty(self, x, y, d, scalex, scaley)
+  function dungeon_mt.pretty(self, x, y, d, scalex, scaley,light)
     scalex = sc or (scalex or 12)
     scaley = scaley or scalex
     --love.graphics.setColor(64,64,64)
-    love.graphics.setColor(255,255,255)
-    for i,t in ipairs(self.tiles) do
-      for j,mat in ipairs(t) do
+    if not light then
+      love.graphics.setColor(255,255,255)
+      for i,t in ipairs(self.tiles) do
+        for j,mat in ipairs(t) do
+          if mat=="wall" then
+            love.graphics.draw(wallim,i*scalex,j*scaley-8)
+          else
+            love.graphics.draw(floorim,i*scalex,j*scaley)
+          end
+        end
+      end
+    end
+    --[[]]
+    if light then
+      love.graphics.setColor(255,255,255)
+      self:shine(math.floor(x),math.floor(y),d,function(i,j,mat)
         if mat=="wall" then
           love.graphics.draw(wallim,i*scalex,j*scaley-8)
         else
           love.graphics.draw(floorim,i*scalex,j*scaley)
         end
-      end
+        --love.graphics.rectangle("fill",i*scalex,j*scaley,scalex-1,scaley-1)
+      end)
     end
-    --[[]
-    love.graphics.setColor(255,255,255)
-    self:shine(math.floor(x),math.floor(y),d,function(i,j,mat)
-      if mat=="wall" then
-        love.graphics.draw(wallim,i*scalex,j*scaley-8)
-      else
-        love.graphics.draw(floorim,i*scalex,j*scaley)
-      end
-      --love.graphics.rectangle("fill",i*scalex,j*scaley,scalex-1,scaley-1)
-    end)
     --]]
   end
 

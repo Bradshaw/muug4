@@ -9,7 +9,7 @@ function state:init()
 	dude.y = 5.5
 	bnc = 0
 	acc = 0
-	d = dungeon.newMade(21,21)
+	d = dungeon.newMaze(21,21)
 	map = {}
 	vis = {}
 	local att = 0
@@ -22,7 +22,7 @@ end
 
 
 function state:enter()
-	d = dungeon.newMade(21,21)
+	d = dungeon.newMaze(21,21)
     map = {}
     vis = {}
     local att = 0
@@ -132,7 +132,7 @@ function state:draw()
 	local scale = 4
 	love.graphics.push()
 	love.graphics.translate(math.floor(-dude.x*scalex)*scale, math.floor(-dude.y*scaley)*scale)
-	love.graphics.translate(love.graphics.getWidth()/2,love.graphics.getHeight()/2)
+	love.graphics.translate(love.graphics.getWidth()/2,2*love.graphics.getHeight()/3)
 	love.graphics.scale(scale,scale)
 	for k,v in pairs(d.tiles) do
 	for j,u in pairs(v) do
@@ -155,6 +155,12 @@ function state:draw()
 
 	love.graphics.push()
 	love.graphics.scale(4,4)
+	love.graphics.setColor(0,0,0)
+	love.graphics.rectangle("fill",0,0,love.graphics.getWidth()/2,35)
+	love.graphics.setColor(0,0,0,65)
+	for i=1,10 do
+		love.graphics.rectangle("fill",0,0,love.graphics.getWidth()/2,35+i*2)
+	end
 	love.graphics.setColor(255,255,255)
 	useful.print("Donjon \"Rogue-like\"\n","center","top",-20,10,4)
 	useful.print(" - Algorithme du labyrinthe\n","last","top",-20,25,4)
