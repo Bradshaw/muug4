@@ -1,5 +1,6 @@
 function love.load(arg)
 	love.graphics.setDefaultImageFilter( "nearest", "nearest"  )
+	love.graphics.setLine(1,"rough")
 	require("useful")
 
 	require("item")
@@ -36,6 +37,8 @@ function love.load(arg)
 		p = p+1
 	end
 	seq.next()
+	--seq.current = 20
+	--gstate.switch(seq.pages[seq.current], seq.current)
 end
 
 

@@ -2,12 +2,26 @@ local state = gstate.new()
 local time = 0
 
 function state:init()
-
+	require("modlevel")
+	r = 0
 end
 
 
 function state:enter()
-
+	l = {}
+	local p = 1
+	while love.filesystem.exists("modlevel/mod"..p..".lua") do
+		l[p] = modlevel.new("modlevel/mod"..p..".lua")
+		p = p+1
+	end
+	--l[#l+1] = modlevel.new("modlevel/cap.lua")
+	--l[#l+1] = modlevel.new("modlevel/corridor.lua")
+	r = (r or 0)+1
+	if r>#l then
+		r = 1
+	end
+	l[r]:center()
+	modlevel.scale = 35
 end
 
 
@@ -65,6 +79,7 @@ end
 function state:update(dt)
 	time = time+dt
 	sparkle.update(sp, dt)
+	l[r]:rotate(dt/8)
 end
 
 
@@ -76,6 +91,11 @@ function state:draw()
 	useful.print(" - Cr<er des \"modules\"\n","last","top",-20,25,4)
 	sparkle.draw(sp)
 	love.graphics.setColor(255,255,255)
+	love.graphics.pop()
+	love.graphics.push()
+	--love.graphics.scale(40,40)
+	love.graphics.translate(love.graphics.getWidth()/2,2*love.graphics.getHeight()/3)
+	l[r]:draw(true)
 	love.graphics.pop()
 end
 

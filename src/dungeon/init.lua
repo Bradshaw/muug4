@@ -73,7 +73,8 @@ function dungeon.newMade(xsize,ysize)
     d:fill("wall")
     d:crap(0.4,"wall")
     for i=1,1 do
-      d:dig()
+      d:dig(math.floor(xsize/2),math.floor(ysize/2))
+      d:dig(math.floor(xsize/2)+1,math.floor(ysize/2)+1)
     end
     for i=1,6 do
       d:randroom(2,5,"rect")
@@ -85,9 +86,9 @@ function dungeon.newMade(xsize,ysize)
     end
     --d:crap(1,"wall")
     --d:replace("flal","wall")
-    d:passage()
+    --d:passage()
     --d:crap(1,"damage","wall")
-    d:crap(0.5,"damage","wall")
+    --d:crap(0.5,"damage","wall")
 
     --d:foreveralone("wall", "room")
 
@@ -238,8 +239,8 @@ function dungeon_mt.solid(self, x, y, val, diag)
 end
 
 function dungeon_mt.dig(self,x,y,mat)
-  local x = x or math.floor(math.random(1,self.xsize)/2)*2
-  local y = y or math.floor(math.random(1,self.ysize)/2)*2
+  local x = x or math.random(1,self.xsize)
+  local y = y or math.random(1,self.ysize)
   if self:get(x,y)=="wall" then
     self:set(x,y,"corridor")
   end
